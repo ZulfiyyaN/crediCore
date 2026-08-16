@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "applicants")
 @Getter
@@ -27,5 +29,6 @@ public class ApplicantEntity {
     Integer totalMonthlyDebt;
     @Column(name = "work_experience_month", nullable = false)
     Integer workExperienceMonth;
-
+    @Column(name = "birth_date", nullable = false)
+    LocalDate birthDate;
 }
