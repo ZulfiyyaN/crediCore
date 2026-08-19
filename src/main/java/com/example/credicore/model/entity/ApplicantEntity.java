@@ -23,12 +23,13 @@ public class ApplicantEntity {
     String firstName;
     @Column(name = "last_name", nullable = false)
     String lastName;
+    @Column(name = "birth_date", nullable = false)
+    LocalDate birthDate;
     @Column(name = "monthly_income", nullable = false)
     Integer monthlyIncome;
     @Column(name = "total_monthly_debt", nullable = false)
     Integer totalMonthlyDebt;
     @Column(name = "work_experience_month", nullable = false)
     Integer workExperienceMonth;
-    @Column(name = "birth_date", nullable = false)
-    LocalDate birthDate;
+
 }
