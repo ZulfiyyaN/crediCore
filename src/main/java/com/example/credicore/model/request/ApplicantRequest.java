@@ -1,25 +1,30 @@
 package com.example.credicore.model.request;
 
-import jakarta.annotation.Nullable;
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
+
 @Getter
 public class ApplicantRequest {
+    @NotBlank(message = "FinCode is can not be blank")
+    @Size(message = "FinCode must be exactly 7 characters")
+    @Pattern(regexp = "^[A-Za-z0-9]+$", message = "FinCode must contain only letters and digits")
     String finCode;
-    @NotBlank
+    @NotBlank(message = "First name can not be blank")
     String firstName;
-    @NotBlank
+    @NotBlank(message = "Last name can not be blank")
     String lastName;
     @NotBlank
+    @Past(message = "Date of birth should be past")
     LocalDate birthDate;
-    @NotBlank
+    @NotNull
+    @PositiveOrZero(message = "Monthly income cannot be negative")
     Integer monthlyIncome;
-    @NotBlank
+    @NotNull
+    @PositiveOrZero(message = "Total monthly debt cannot be negative")
     Integer totalMonthlyDebt;
-    @NotBlank
+    @NotNull
     Integer workExperienceMonth;
 
 }
