@@ -8,14 +8,14 @@ import java.time.LocalDate;
 @Getter
 public class ApplicantRequest {
     @NotBlank(message = "FinCode is can not be blank")
-    @Size(message = "FinCode must be exactly 7 characters")
+    @Size(min = 7, max = 7, message = "FinCode must be exactly 7 characters")
     @Pattern(regexp = "^[A-Za-z0-9]+$", message = "FinCode must contain only letters and digits")
     String finCode;
     @NotBlank(message = "First name can not be blank")
     String firstName;
     @NotBlank(message = "Last name can not be blank")
     String lastName;
-    @NotBlank
+    @NotNull
     @Past(message = "Date of birth should be past")
     LocalDate birthDate;
     @NotNull
