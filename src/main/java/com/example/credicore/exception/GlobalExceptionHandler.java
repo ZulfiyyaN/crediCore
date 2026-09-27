@@ -19,5 +19,11 @@ public class GlobalExceptionHandler {
                 .body(ex.getMessage());
     }
 
+    @ExceptionHandler(ApplicantAlreadyExistsException.class)
+    public ResponseEntity<String> handleApplicantAlreadyExists(ApplicantAlreadyExistsException ex, HttpServletRequest request) {
+        log.info("Applicant is already exists!");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ex.getMessage());
+    }
 
 }
