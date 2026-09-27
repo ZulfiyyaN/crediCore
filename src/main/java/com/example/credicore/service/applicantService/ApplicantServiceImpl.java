@@ -1,5 +1,6 @@
 package com.example.credicore.service.applicantService;
 
+import com.example.credicore.exception.ApplicantAlreadyExistsException;
 import com.example.credicore.exception.ApplicantNotEligibleException;
 import com.example.credicore.mapper.ApplicantMapper;
 import com.example.credicore.model.entity.ApplicantEntity;
@@ -26,6 +27,11 @@ public class ApplicantServiceImpl implements ApplicantService {
 
     @Override
     public void createApplicant(ApplicantRequest request) {
+
+        if(applicantRepository.existsByFinCode(request.getFinCode())){
+            throw new ApplicantAlreadyExistsException("Applicant is already exists!");
+        }
+
         LocalDate birthDate = request.getBirthDate();
         int age = Period.between(birthDate, LocalDate.now()).getYears();
 
