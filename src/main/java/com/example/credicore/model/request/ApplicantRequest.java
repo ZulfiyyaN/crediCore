@@ -15,16 +15,17 @@ public class ApplicantRequest {
     String firstName;
     @NotBlank(message = "Last name can not be blank")
     String lastName;
-    @NotNull
+    @NotNull(message = "Birth Date can not be null!")
     @Past(message = "Date of birth should be past")
     LocalDate birthDate;
-    @NotNull
+    @NotNull(message = "Monthly income can not be null!")
     @PositiveOrZero(message = "Monthly income cannot be negative")
     Integer monthlyIncome;
-    @NotNull
+    @NotNull(message = "Total monthly debt can not be null!")
     @PositiveOrZero(message = "Total monthly debt cannot be negative")
     Integer totalMonthlyDebt;
-    @NotNull
+    @NotNull(message = "Work experience can not be null!")
+    @PositiveOrZero(message = "Work experience can not be negative!")
     Integer workExperienceMonth;
 
 }

@@ -17,9 +17,9 @@ public class ApplicantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(name = "fin_code", nullable = false)
+    @Column(name = "fin_code", nullable = false, unique = true)
     String finCode;
-    @Column(name = "first_name", nullable = false, unique = true)
+    @Column(name = "first_name", nullable = false)
     String firstName;
     @Column(name = "last_name", nullable = false)
     String lastName;
