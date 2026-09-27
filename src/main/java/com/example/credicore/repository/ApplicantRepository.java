@@ -4,4 +4,6 @@ import com.example.credicore.model.entity.ApplicantEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ApplicantRepository extends JpaRepository<ApplicantEntity, Long> {
+
+    boolean existsByFinCode(String finCode);
 }
