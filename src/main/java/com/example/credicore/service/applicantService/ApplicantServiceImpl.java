@@ -2,6 +2,7 @@ package com.example.credicore.service.applicantService;
 
 import com.example.credicore.exception.ApplicantAlreadyExistsException;
 import com.example.credicore.exception.ApplicantNotEligibleException;
+import com.example.credicore.exception.IncomeIsNotEnoughException;
 import com.example.credicore.mapper.ApplicantMapper;
 import com.example.credicore.model.entity.ApplicantEntity;
 import com.example.credicore.model.request.ApplicantRequest;
@@ -12,6 +13,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -28,7 +31,7 @@ public class ApplicantServiceImpl implements ApplicantService {
     @Override
     public void createApplicant(ApplicantRequest request) {
 
-        if(applicantRepository.existsByFinCode(request.getFinCode())){
+        if (applicantRepository.existsByFinCode(request.getFinCode())) {
             throw new ApplicantAlreadyExistsException("Applicant is already exists!");
         }
 
@@ -46,6 +49,19 @@ public class ApplicantServiceImpl implements ApplicantService {
         ApplicantEntity applicantEntity = applicantMapper.fromRequestToApplicant(request);
         applicantRepository.save(applicantEntity);
         log.info("Applicant created");
+
+    }
+
+    @Override
+    public BigDecimal calculateBGN(Double income, Double debt) {
+        if (income <= debt || income == 0) {
+            log.warn("Income should be more than debt!");
+            throw new IncomeIsNotEnoughException("Income is not enough!");
+        }
+
+        return BigDecimal.valueOf(debt).divide(BigDecimal.valueOf(income), 4, RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(100))
+                .setScale(2, RoundingMode.HALF_UP);
 
     }
 }
